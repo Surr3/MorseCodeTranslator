@@ -4,13 +4,17 @@ import java.util.HashMap;
 
 public class MorseCodeTranslator {
     HashMap<Character, String> morseList = new HashMap<>();
-    String translatedMessage;
-    String inputMessage;
-    boolean isValid = false;
 
-    public MorseCodeTranslator(String inputMessage){
+    private String translatedMessage;
+    private final String inputMessage;
 
-        this.inputMessage=inputMessage;
+    private boolean isValid;
+    private boolean hasLetters = false;
+    private boolean hasSymbols = false;
+
+    public MorseCodeTranslator(String inputMessage) {
+
+        this.inputMessage = inputMessage.toUpperCase();
 
         morseList.put('A', ".-");
         morseList.put('B', "-...");
@@ -38,10 +42,36 @@ public class MorseCodeTranslator {
         morseList.put('Y', "-.--");
         morseList.put('Z', "--..");
 
+        checkValidInput();
     }
 
-    public boolean validator(){
-        return false;
+    public boolean checkValidInput() {
+        if (inputMessage.matches("[A-Z. -]+")) {
+            if (!inputMessage.isBlank()) {
+                for (int i = 0; i < inputMessage.length(); i++) {
+                    if (Character.isLetter(inputMessage.charAt(i))){
+                        hasLetters = true;
+                    }
+                    if (!Character.isLetterOrDigit(inputMessage.charAt(i))){
+                        hasSymbols = true;
+                    }
+                }
+                if (!(hasSymbols && hasLetters)){
+                    isValid = true;
+                }
+            }
+            else isValid = false;
+        }
 
+        return isValid;
     }
+
+    public boolean getValidity() {
+        return isValid;
+    }
+
+    public String getTranslatedMessage() {
+        return "ge";
+    }
+
 }
