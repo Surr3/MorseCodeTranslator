@@ -20,7 +20,6 @@ public class MorseCodeTranslator {
         morseList.put('F', "..-.");
         morseList.put('G', "--.");
         morseList.put('H', "....");
-        morseList.put('I', "..");
         morseList.put('J', ".---");
         morseList.put('K', "-.-");
         morseList.put('L', ".-..");
@@ -38,5 +37,11 @@ public class MorseCodeTranslator {
         morseList.put('X', "-..-");
         morseList.put('Y', "-.--");
         morseList.put('Z', "--..");
+
+    }
+
+    public boolean validator(){
+        return false;
+
     }
 }
