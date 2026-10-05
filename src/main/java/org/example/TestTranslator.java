@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TestTranslator {
     @Test
-    public void singleValidLetterShouldReturnMorse() {
+    public void validLettersShouldReturnMorse() {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("A");
         String expected = ".-";
@@ -32,7 +32,7 @@ public class TestTranslator {
     }
 
     @Test
-    public void blanksAreIncludedWithLetters() {
+    public void blanksAreIncludedWithMorse() {
         MorseCodeTranslator translator = new MorseCodeTranslator("H E");
         String expected = ".... .";
 
@@ -45,8 +45,8 @@ public class TestTranslator {
 
     @Test
     public void blanksAreIncludedWithSymbols() {
-        MorseCodeTranslator translator = new MorseCodeTranslator(" ");
-        String expected = " ";
+        MorseCodeTranslator translator = new MorseCodeTranslator(".- -...");
+        String expected = "A B";
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -55,6 +55,17 @@ public class TestTranslator {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void lowercaseLettersShouldReturnMorse(){
+        MorseCodeTranslator translator = new MorseCodeTranslator("h e");
+        String expected = ".... .";
+
+        //Act
+        String actual = translator.getTranslatedMessage();
+
+        //Assert
+        assertEquals(expected, actual);
+    }
 
     @Test
     public void numericalInputsShouldReturnFalse() {
