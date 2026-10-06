@@ -96,12 +96,15 @@ public class MorseCodeTranslator {
 
                 //If character is blank, appends blank for morse code (3 blanks) to translation.
                 if (inputMessage.charAt(i) == ' ') {
-                    translatedMessage.append("   ");
+                    translatedMessage.append("  ");
                 }
 
                 //If not blank, appends corresponding morse code.
                 else {
                     translatedMessage.append(morseList.get(inputMessage.charAt(i)));
+                    if (i < inputMessage.length() - 1) {
+                        translatedMessage.append(" ");
+                    }
                 }
             }
         }
@@ -116,7 +119,7 @@ public class MorseCodeTranslator {
             for (String morseLetter : morseWords) {
 
                 //Separates all morse letters, including blank spaces.
-                String[] individualLetter = morseLetter.split("(?<=\\s)|(?=\\s)");
+                String[] individualLetter = morseLetter.split(" ");
 
                 //Iterates through all morse letters.
                 for (String eachLetter : individualLetter) {
@@ -132,6 +135,7 @@ public class MorseCodeTranslator {
                         }
                     });
                 }
+                    translatedMessage.append(" ");
             }
         }
     }
