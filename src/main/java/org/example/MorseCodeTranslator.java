@@ -88,10 +88,6 @@ public class MorseCodeTranslator {
         else translatedMessage.append(errorMessage);
     }
 
-    public boolean getValidity() {
-        return isValid;
-    }
-
     public void translateMessage() {
         if (hasLetters) {
             for (int i = 0; i < inputMessage.length(); i++) {
