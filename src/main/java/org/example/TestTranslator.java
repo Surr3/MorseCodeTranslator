@@ -34,7 +34,7 @@ public class TestTranslator {
     @Test
     public void blanksAreIncludedWithMorse() {
         MorseCodeTranslator translator = new MorseCodeTranslator("H E");
-        String expected = ".... .";
+        String expected = "....   .";
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -56,9 +56,9 @@ public class TestTranslator {
     }
 
     @Test
-    public void lowercaseLettersShouldReturnMorse(){
+    public void lowercaseLettersShouldReturnMorse() {
         MorseCodeTranslator translator = new MorseCodeTranslator("h e");
-        String expected = ".... .";
+        String expected = "....   .";
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -68,52 +68,70 @@ public class TestTranslator {
     }
 
     @Test
-    public void numericalInputsShouldReturnFalse() {
+    public void numericalInputsShouldPrintErrorMessage() {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("1");
-        boolean expected = false;
+        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        ;
 
         //Act
-        boolean actual = translator.getValidity();
+        String actual = translator.getTranslatedMessage();
 
         //Assert
         assertEquals(expected, actual);
     }
 
     @Test
-    public void invalidLettersShouldReturnFalse() {
+    public void invalidLettersShouldPrintErrorMessage() {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("å");
-        boolean expected = false;
+        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        ;
 
         //Act
-        boolean actual = translator.getValidity();
+        String actual = translator.getTranslatedMessage();
 
         //Assert
         assertEquals(expected, actual);
     }
 
     @Test
-    public void emptyInputShouldReturnFalse() {
+    public void invalidSymbolsShouldPrintErrorMessage() {
+        //Arrange
+        MorseCodeTranslator translator = new MorseCodeTranslator("(");
+        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        ;
+
+        //Act
+        String actual = translator.getTranslatedMessage();
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void emptyInputShouldPrintErrorMessage() {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("");
-        boolean expected = false;
+        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        ;
 
         //Act
-        boolean actual = translator.getValidity();
+        String actual = translator.getTranslatedMessage();
 
         //Assert
         assertEquals(expected, actual);
     }
 
     @Test
-    public void onlyBlankInputShouldReturnFalse() {
+    public void onlyBlankInputShouldPrintErrorMessage() {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("       ");
-        boolean expected = false;
+        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        ;
 
         //Act
-        boolean actual = translator.getValidity();
+        String actual = translator.getTranslatedMessage();
 
         //Assert
         assertEquals(expected, actual);
@@ -121,13 +139,14 @@ public class TestTranslator {
 
 
     @Test
-    public void combiningSymbolsAndLetterShouldReturnFalse() {
+    public void combiningCharactersPrintErrorMessage() {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("A -");
-        boolean expected = false;
+        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        ;
 
         //Act
-        boolean actual = translator.getValidity();
+        String actual = translator.getTranslatedMessage();
 
         //Assert
         assertEquals(expected, actual);
