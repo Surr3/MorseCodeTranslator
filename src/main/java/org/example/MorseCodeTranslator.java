@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class MorseCodeTranslator {
     HashMap<Character, String> morseList = new HashMap<>();
 
-    private StringBuilder translatedMessage = new StringBuilder();
+    private final StringBuilder translatedMessage = new StringBuilder();
 
     private final String inputMessage;
 
