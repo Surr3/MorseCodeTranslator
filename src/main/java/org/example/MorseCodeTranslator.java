@@ -1,8 +1,6 @@
 package org.example;
 
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MorseCodeTranslator {
     HashMap<Character, String> morseList = new HashMap<>();
@@ -11,10 +9,7 @@ public class MorseCodeTranslator {
 
     private final String inputMessage;
 
-    private boolean isValid = false;
-    private boolean hasLetters = false;
-    private boolean hasSymbols = false;
-
+    private boolean isValid, hasLetters, hasSymbols = false;
 
     public MorseCodeTranslator(String inputMessage) {
 
@@ -50,6 +45,7 @@ public class MorseCodeTranslator {
         morseList.put(' ', " ");
 
         checkValidInput();
+
         if (isValid) {
             translateMessage();
         }
@@ -113,18 +109,28 @@ public class MorseCodeTranslator {
         //Translates input if inputs is morse code.
         else {
 
-            //Separates all words that are morse code into array morseWords.
+            //Separates words that are morse code into array morseWords.
             String[] morseWords = inputMessage.split("   ");
 
+            //Iterates through all morse words in order to separate letters.
             for (String morseLetter : morseWords) {
+
+                //Separates all morse letters, including blank spaces.
                 String[] individualLetter = morseLetter.split("(?<=\\s)|(?=\\s)");
+
+                //Iterates through all morse letters.
                 for (String eachLetter : individualLetter) {
+
+                    //Iterates through all morse letters and corresponding English letters.
                     morseList.forEach((key, value) -> {
+                        /*
+                         * If morseList contains value, append the corresponding key to translatedMessage.
+                         * Including blanks.
+                         */
                         if (eachLetter.equals(value)) {
                             translatedMessage.append(key);
-                            }
                         }
-                    );
+                    });
                 }
             }
         }
