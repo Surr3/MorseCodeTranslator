@@ -72,7 +72,6 @@ public class TestTranslator {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("1");
         String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
-        ;
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -86,7 +85,6 @@ public class TestTranslator {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("å");
         String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
-        ;
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -100,7 +98,6 @@ public class TestTranslator {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("(");
         String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
-        ;
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -114,7 +111,6 @@ public class TestTranslator {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("");
         String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
-        ;
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -128,7 +124,6 @@ public class TestTranslator {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("       ");
         String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
-        ;
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -136,14 +131,12 @@ public class TestTranslator {
         //Assert
         assertEquals(expected, actual);
     }
-
 
     @Test
     public void combiningCharactersPrintErrorMessage() {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("A -");
         String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
-        ;
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -151,6 +144,4 @@ public class TestTranslator {
         //Assert
         assertEquals(expected, actual);
     }
-
-
 }
