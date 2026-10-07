@@ -110,8 +110,8 @@ public class TestTranslator {
 
     @Test
     public void lowercaseLettersTranslatesToMorse() {
-        MorseCodeTranslator translator = new MorseCodeTranslator("h e");
-        String expected = "....   .";
+        MorseCodeTranslator translator = new MorseCodeTranslator("a z");
+        String expected = ".-   --..";
 
         //Act
         String actual = translator.getTranslatedMessage();
