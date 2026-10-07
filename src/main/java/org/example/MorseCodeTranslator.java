@@ -135,7 +135,7 @@ public class MorseCodeTranslator {
                         }
                     });
                 }
-                    translatedMessage.append(" ");
+                translatedMessage.append(" ");
             }
         }
     }
