@@ -9,7 +9,7 @@ public class MorseCodeTranslator {
 
     private final String inputMessage;
 
-    private boolean isValid, hasLetters, hasSymbols = false;
+    boolean hasLetters, hasSymbols = false;
 
     public MorseCodeTranslator(String inputMessage) {
 
@@ -45,47 +45,71 @@ public class MorseCodeTranslator {
         morseList.put(' ', " ");
 
         checkValidInput();
-
-        if (isValid) {
-            translateMessage();
-        }
     }
 
     //Returns if input is valid or not.
     public void checkValidInput() {
-        String errorMessage = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
 
         //Processes input if it contains only letters a-z, dashes (-), dots (.) and blanks.
-        if (inputMessage.matches("[A-Z. -]+")) {
+        if (inputMessage.matches("[A-Z. -]+") && !inputMessage.isBlank()) {
 
             //Processes input as long as it is not only blanks.
-            if (!inputMessage.isBlank()) {
-                for (int i = 0; i < inputMessage.length(); i++) {
-                    if (Character.isLetter(inputMessage.charAt(i))) {
-                        hasLetters = true;
-                    }
-                    if (!Character.isLetterOrDigit(inputMessage.charAt(i)) && !(inputMessage.charAt(i) == ' ')) {
-                        hasSymbols = true;
-                    }
+            for (int i = 0; i < inputMessage.length(); i++) {
+                if (Character.isLetter(inputMessage.charAt(i))) {
+                    hasLetters = true;
                 }
-                /*
-                 * If input has valid symbols & letters, the input is not valid.
-                 * Combining is not allowed.
-                 * Prints error message if there is a combination of characters.
-                 */
-                if (!(hasSymbols && hasLetters)) {
-                    isValid = true;
-                } else {
-                    translatedMessage.append(errorMessage);
+                if (!Character.isLetterOrDigit(inputMessage.charAt(i)) && !(inputMessage.charAt(i) == ' ')) {
+                    hasSymbols = true;
                 }
             }
-            //Prints errorMessage if input only has blanks.
-            else {
-                translatedMessage.append(errorMessage);
+            /*
+             * If inputMessage is valid and doesn't have combinations of symbols and letters --> translateMessage()
+             * Else prints error message.
+             */
+            if (!(hasSymbols && hasLetters)) {
+                translateMessage();
+            } else translatedMessage.append("Combining alphabets and morse is not allowed. Try again.");
+        }
+        // Call function if there are invalid inputs (e.g. 123, åäö, !? or only blanks/empty).
+        else errorMessageHandler();
+    }
+
+    private void errorMessageHandler() {
+
+        boolean hasDigits = false;
+        boolean hasInvalidLetters = false;
+        boolean hasInvalidSymbols = false;
+
+        // Error message if blanks/empty.
+        if (inputMessage.isBlank()) {
+            translatedMessage.append("Input can't be empty or only blanks.\n");
+        } else {
+
+            for (int i = 0; i < inputMessage.length(); i++) {
+
+                char currentCharacter = inputMessage.charAt(i);
+
+                //Checks if current character is a digit.
+                if (Character.isDigit(currentCharacter) && !hasDigits) {
+                    translatedMessage.append("You can't translate numbers.\n");
+                    //Becomes true if a digit is found to prevent processing further digits.
+                    hasDigits = true;
+                }
+                //Checks if current character is an invalid letter, everything besides a-z.
+                if (Character.isLetter(currentCharacter) && !inputMessage.matches("[A-Z]") && !hasInvalidLetters) {
+                    translatedMessage.append("You can't use invalid letters.\n");
+                    //Becomes true if a digit is found to prevent processing further invalid letters.
+                    hasInvalidLetters = true;
+                }
+                //Checks if current character is an invalid symbol, everything besides blanks, dashes and dots.
+                if (!Character.isLetterOrDigit(currentCharacter) && !inputMessage.matches("[[.\\s-]]") && !hasInvalidSymbols) {
+                    translatedMessage.append("You can't use invalid symbols.\n");
+                    //Becomes true if an invalid symbol is found digit to prevent processing further symbols.
+                    hasInvalidSymbols = true;
+                }
             }
         }
-        //Prints errorMessage if input has numbers or invalid characters (e.g. å, ä, ö or /, ?, !).
-        else translatedMessage.append(errorMessage);
+        translatedMessage.append("Please try again and use only A-Z, a-z or dots (.) and dashes (-).");
     }
 
     public void translateMessage() {

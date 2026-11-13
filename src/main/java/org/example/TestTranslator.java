@@ -123,8 +123,8 @@ public class TestTranslator {
     @Test
     public void numericalInputsPrintsErrorMessage() {
         //Arrange
-        MorseCodeTranslator translator = new MorseCodeTranslator("1");
-        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        MorseCodeTranslator translator = new MorseCodeTranslator("11");
+        String expected = "You can't translate numbers.\nPlease try again and use only A-Z, a-z or dots (.) and dashes (-).";
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -136,8 +136,8 @@ public class TestTranslator {
     @Test
     public void invalidLettersPrintsErrorMessage() {
         //Arrange
-        MorseCodeTranslator translator = new MorseCodeTranslator("å");
-        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        MorseCodeTranslator translator = new MorseCodeTranslator("åå");
+        String expected = "You can't use invalid letters.\nPlease try again and use only A-Z, a-z or dots (.) and dashes (-).";
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -147,10 +147,23 @@ public class TestTranslator {
     }
 
     @Test
+    public void multipleInvalidsPrintsErrorMessages() {
+        MorseCodeTranslator translator = new MorseCodeTranslator("1å!");
+        String expected = "You can't translate numbers.\n" + "You can't use invalid letters.\n" + "You can't use invalid symbols.\n" + "Please try again and use only A-Z, a-z or dots (.) and dashes (-).";
+
+        //Act
+        String actual = translator.getTranslatedMessage();
+
+        //Assert
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
     public void invalidSymbolsPrintsErrorMessage() {
         //Arrange
-        MorseCodeTranslator translator = new MorseCodeTranslator("(");
-        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        MorseCodeTranslator translator = new MorseCodeTranslator("((");
+        String expected = "You can't use invalid symbols.\nPlease try again and use only A-Z, a-z or dots (.) and dashes (-).";
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -163,7 +176,7 @@ public class TestTranslator {
     public void emptyInputPrintsErrorMessage() {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("");
-        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        String expected = "Input can't be empty or only blanks.\nPlease try again and use only A-Z, a-z or dots (.) and dashes (-).";
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -176,7 +189,7 @@ public class TestTranslator {
     public void onlyBlankInputPrintsErrorMessage() {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("       ");
-        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        String expected = "Input can't be empty or only blanks.\nPlease try again and use only A-Z, a-z or dots (.) and dashes (-).";
 
         //Act
         String actual = translator.getTranslatedMessage();
@@ -189,7 +202,7 @@ public class TestTranslator {
     public void combiningCharactersPrintsErrorMessage() {
         //Arrange
         MorseCodeTranslator translator = new MorseCodeTranslator("A -");
-        String expected = "Please enter only A-Z (lowercase included) or dashes (-) and dots (.).\nPlease try again.";
+        String expected = "Combining alphabets and morse is not allowed. Try again.";
 
         //Act
         String actual = translator.getTranslatedMessage();
