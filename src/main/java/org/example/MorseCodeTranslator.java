@@ -80,6 +80,7 @@ public class MorseCodeTranslator {
         boolean hasInvalidLetters = false;
         boolean hasInvalidSymbols = false;
 
+        // Error message if blanks/empty.
         if (inputMessage.isBlank()) {
             translatedMessage.append("Input can't be empty or only blanks.\n");
         } else {
@@ -88,16 +89,22 @@ public class MorseCodeTranslator {
 
                 char currentCharacter = inputMessage.charAt(i);
 
+                //Checks if current character is a digit.
                 if (Character.isDigit(currentCharacter) && !hasDigits) {
                     translatedMessage.append("You can't translate numbers.\n");
+                    //Becomes true if a digit is found to prevent processing further digits.
                     hasDigits = true;
                 }
+                //Checks if current character is an invalid letter, everything besides a-z.
                 if (Character.isLetter(currentCharacter) && !inputMessage.matches("[A-Z]") && !hasInvalidLetters) {
                     translatedMessage.append("You can't use invalid letters.\n");
+                    //Becomes true if a digit is found to prevent processing further invalid letters.
                     hasInvalidLetters = true;
                 }
+                //Checks if current character is an invalid symbol, everything besides blanks, dashes and dots.
                 if (!Character.isLetterOrDigit(currentCharacter) && !inputMessage.matches("[[.\\s-]]") && !hasInvalidSymbols) {
                     translatedMessage.append("You can't use invalid symbols.\n");
+                    //Becomes true if an invalid symbol is found digit to prevent processing further symbols.
                     hasInvalidSymbols = true;
                 }
             }
